@@ -6,16 +6,19 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.jogo.entities.Player;
+import com.jogo.graphics.Camera;
 import com.jogo.map.TileManager;
 
 public class Game extends JPanel {
 
     private final Player player;
     private final TileManager tileManager;
+    private final Camera camera;
 
     public Game() {
         tileManager = new TileManager(50, 37);
         player = new Player(200, 200);
+        camera = new Camera();
 
         addKeyListener(player);
         setFocusable(true);
@@ -27,6 +30,7 @@ public class Game extends JPanel {
 
     private void update() {
         player.update();
+        camera.update(player, getWidth(), getHeight());
         repaint();
     }
 
@@ -37,8 +41,8 @@ public class Game extends JPanel {
         g.setColor(java.awt.Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        g.translate(-camera.getX(), -camera.getY());
         tileManager.render(g);
-        
         player.render(g);
     }
 }

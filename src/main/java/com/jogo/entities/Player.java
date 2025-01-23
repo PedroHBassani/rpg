@@ -96,4 +96,12 @@ public final class Player implements KeyListener {
     public String getLastDirection() {
         return lastDirection;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

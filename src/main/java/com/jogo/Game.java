@@ -24,6 +24,9 @@ public class Game extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
 
+        player.getInventory().addItem("Sword");
+        player.getInventory().addItem("Shield");
+
         Timer timer = new Timer(1000 / 60, e -> update());
         timer.start();
     }
@@ -44,5 +47,8 @@ public class Game extends JPanel {
         g.translate(-camera.getX(), -camera.getY());
         tileManager.render(g);
         player.render(g);
+        g.translate(camera.getX(), camera.getY());
+
+        player.renderInventory(g, getWidth(), getHeight());
     }
 }

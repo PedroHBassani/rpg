@@ -13,6 +13,7 @@ public final class Player implements KeyListener {
     private final PlayerAnimationManager animationManager;
     private final PlayerInputManager inputManager;
     private final int speed = 4;
+    private final Inventory inventory;
 
     private int x, y;
     private String currentDirection = null;
@@ -24,10 +25,11 @@ public final class Player implements KeyListener {
         this.y = y;
         animationManager = new PlayerAnimationManager();
         inputManager = new PlayerInputManager(this);
+        inventory = new Inventory();
 
         animationManager.setSpriteSheet("src/main/resources/character/idle.png", PlayerConstants.IDLE.getValue(), 7);
         animationManager.setSpriteSheet("src/main/resources/character/walk.png", PlayerConstants.WALKING.getValue(), 2);
-        
+
         animationManager.setCurrentAnimation(PlayerConstants.IDLE.getValue(), lastDirection);
     }
 
@@ -67,6 +69,10 @@ public final class Player implements KeyListener {
         g.drawImage(animationManager.getCurrentFrame(), x, y, null);
     }
 
+    public void renderInventory(Graphics g, int screenWidth, int screenHeight) {
+        inventory.render(g, screenWidth, screenHeight);
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -103,5 +109,9 @@ public final class Player implements KeyListener {
 
     public int getY() {
         return y;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

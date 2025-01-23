@@ -10,41 +10,88 @@ public class TileManager {
     private final Tile[] tiles;
     private final int[][] map;
     private final int tileSize;
+    private final SpriteSheet sheet;
 
     public TileManager(int mapWidth, int mapHeight) {
         tiles = new Tile[TileType.values().length];
         map = new int[mapHeight][mapWidth];
         tileSize = 16;
+        sheet = new SpriteSheet("src/main/resources/tiles/sprint_tiles.png");
 
         loadTiles();
         createMap();
     }
 
     private void loadTiles() {
-        SpriteSheet sheet = new SpriteSheet("src/main/resources/tiles/sprint_tiles.png");
+        loadTile(TileType.TOP_GRASS_1, 0, 0);
+        loadTile(TileType.TOP_GRASS_2, 1, 0);
+        loadTile(TileType.TOP_GRASS_3, 0, 1);
+        loadTile(TileType.TOP_GRASS_4, 1, 1);
 
-        tiles[TileType.TOP_GRASS_1.getId()] = new Tile(sheet.getSprite(0, 0, 16, 16, 3), TileType.TOP_GRASS_1);
-        tiles[TileType.TOP_GRASS_2.getId()] = new Tile(sheet.getSprite(1, 0, 16, 16, 3), TileType.TOP_GRASS_2);
-        tiles[TileType.TOP_GRASS_3.getId()] = new Tile(sheet.getSprite(0, 1, 16, 16, 3), TileType.TOP_GRASS_3);
-        tiles[TileType.TOP_GRASS_4.getId()] = new Tile(sheet.getSprite(1, 1, 16, 16, 3), TileType.TOP_GRASS_4);
+        loadTile(TileType.DIRT_TOP_LEFT, 3, 7);
+        loadTile(TileType.DIRT_TOP_CENTER, 4, 7);
+        loadTile(TileType.DIRT_TOP_RIGHT, 5, 7);
 
-        tiles[TileType.DIRT_ROAD_TOP_LEFT.getId()] = new Tile(sheet.getSprite(3, 7, 16, 16, 3), TileType.DIRT_ROAD_TOP_LEFT);
-        tiles[TileType.DIRT_ROAD_TOP_CENTER.getId()] = new Tile(sheet.getSprite(4, 7, 16, 16, 3), TileType.DIRT_ROAD_TOP_CENTER);
-        tiles[TileType.DIRT_ROAD_TOP_RIGHT.getId()] = new Tile(sheet.getSprite(5, 7, 16, 16, 3), TileType.DIRT_ROAD_TOP_RIGHT);
+        loadTile(TileType.DIRT_CENTER_LEFT, 3, 8);
+        loadTile(TileType.DIRT_CENTER, 4, 8);
+        loadTile(TileType.DIRT_CENTER_RIGHT, 5, 8);
 
-        tiles[TileType.DIRT_ROAD_CENTER_LEFT.getId()] = new Tile(sheet.getSprite(3, 8, 16, 16, 3), TileType.DIRT_ROAD_CENTER_LEFT);
-        tiles[TileType.DIRT_ROAD_CENTER.getId()] = new Tile(sheet.getSprite(4, 8, 16, 16, 3), TileType.DIRT_ROAD_CENTER);
-        tiles[TileType.DIRT_ROAD_CENTER_RIGHT.getId()] = new Tile(sheet.getSprite(5, 8, 16, 16, 3), TileType.DIRT_ROAD_CENTER_RIGHT);
+        loadTile(TileType.DIRT_BOTTOM_LEFT, 3, 9);
+        loadTile(TileType.DIRT_BOTTOM_CENTER, 4, 9);
+        loadTile(TileType.DIRT_BOTTOM_RIGHT, 5, 9);
 
-        tiles[TileType.DIRT_ROAD_BOTTOM_LEFT.getId()] = new Tile(sheet.getSprite(3, 9, 16, 16, 3), TileType.DIRT_ROAD_BOTTOM_LEFT);
-        tiles[TileType.DIRT_ROAD_BOTTOM_CENTER.getId()] = new Tile(sheet.getSprite(4, 9, 16, 16, 3), TileType.DIRT_ROAD_BOTTOM_CENTER);
-        tiles[TileType.DIRT_ROAD_BOTTOM_RIGHT.getId()] = new Tile(sheet.getSprite(5, 9, 16, 16, 3), TileType.DIRT_ROAD_BOTTOM_RIGHT);
+        loadTile(TileType.HILL_TOP_LEFT, 5, 0);
+        loadTile(TileType.HILL_TOP_RIGHT, 6, 0);
+        loadTile(TileType.HILL_BOTTOM_LEFT, 5, 1);
+        loadTile(TileType.HILL_BOTTOM_RIGHT, 6, 1);
+
+        loadTile(TileType.RAVINE_TOP_LEFT, 7, 0);
+        loadTile(TileType.RAVINE_TOP_CENTER, 8, 0);
+        loadTile(TileType.RAVINE_TOP_RIGHT, 9, 0);
+        loadTile(TileType.RAVINE_CENTER_LEFT, 7, 1);
+        loadTile(TileType.RAVINE_CENTER_RIGHT, 9, 1);
+        loadTile(TileType.RAVINE_BOTTOM_LEFT, 7, 2);
+        loadTile(TileType.RAVINE_BOTTOM_CENTER, 8, 2);
+        loadTile(TileType.RAVINE_BOTTOM_RIGHT, 9, 2);
+
+        loadTile(TileType.DIRT_WALL, 8, 3);
+        loadTile(TileType.SAND, 9, 3);
+
+        loadTile(TileType.RED_MUSHROOM, 5, 3);
+        loadTile(TileType.WHITE_FLOWER, 5, 4);
+        loadTile(TileType.YELLOW_FLOWER, 6, 3);
+        loadTile(TileType.GRASS, 6, 4);
+
+        loadTile(TileType.WATER, 1, 9);
+
+        loadTile(TileType.WATER_RAVINE_TOP_LEFT, 0, 8);
+        loadTile(TileType.WATER_RAVINE_TOP_CENTER, 1, 8);
+        loadTile(TileType.WATER_RAVINE_TOP_RIGHT, 2, 8);
+        loadTile(TileType.WATER_RAVINE_CENTER_LEFT, 0, 9);
+        loadTile(TileType.WATER_RAVINE_CENTER_RIGHT, 2, 9);
+        loadTile(TileType.WATER_RAVINE_BOTTOM_LEFT, 0, 10);
+        loadTile(TileType.WATER_RAVINE_BOTTOM_CENTER, 1, 10);
+        loadTile(TileType.WATER_RAVINE_BOTTOM_RIGHT, 2, 10);
+
+        loadTile(TileType.DIRT_ROAD_TOP_LEFT, 3, 10);
+        loadTile(TileType.DIRT_ROAD_TOP_CENTER, 4, 10);
+        loadTile(TileType.DIRT_ROAD_TOP_RIGHT, 5, 10);
+        loadTile(TileType.DIRT_ROAD_CENTER_LEFT, 3, 11);
+        loadTile(TileType.DIRT_ROAD_CENTER, 4, 11);
+        loadTile(TileType.DIRT_ROAD_CENTER_RIGHT, 5, 11);
+        loadTile(TileType.DIRT_ROAD_BOTTOM_LEFT, 3, 12);
+        loadTile(TileType.DIRT_ROAD_BOTTOM_CENTER, 4, 12);
+        loadTile(TileType.DIRT_ROAD_BOTTOM_RIGHT, 5, 12);
+    }
+
+    private void loadTile(TileType tileType, int x, int y) {
+        tiles[tileType.getId()] = new Tile(sheet.getSprite(x, y, 16, 16, 3), tileType);
     }
 
     private void createMap() {
         for (int[] map1 : map) {
             for (int col = 0; col < map[0].length; col++) {
-                map1[col] = TileType.DIRT_ROAD_CENTER.getId();
+                map1[col] = TileType.DIRT_CENTER.getId();
             }
         }
     }

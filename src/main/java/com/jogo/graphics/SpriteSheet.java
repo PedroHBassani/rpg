@@ -21,7 +21,7 @@ public class SpriteSheet {
 
     public BufferedImage getSprite(int x, int y, int width, int height, int scale) {
         BufferedImage sprite = sheet.getSubimage(x * width, y * height, width, height);
-        BufferedImage scaledSprite = new BufferedImage(width * scale, height * scale, sprite.getType());
+        BufferedImage scaledSprite = new BufferedImage(width * scale, height * scale, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = scaledSprite.createGraphics();
         g2d.drawImage(sprite, 0, 0, width * scale, height * scale, null);
         g2d.dispose();

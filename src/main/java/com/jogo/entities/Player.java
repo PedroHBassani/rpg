@@ -16,7 +16,7 @@ public final class Player implements KeyListener {
 
     private int x, y;
     private String currentDirection = null;
-    private String lastDirection = "down";
+    private String lastDirection = PlayerConstants.DOWN.getValue();
     private boolean isMoving = false;
 
     public Player(int x, int y) {

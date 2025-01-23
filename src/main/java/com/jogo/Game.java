@@ -9,11 +9,12 @@ import com.jogo.entities.Player;
 import com.jogo.map.TileManager;
 
 public class Game extends JPanel {
+
     private final Player player;
     private final TileManager tileManager;
 
     public Game() {
-        tileManager = new TileManager(50, 37); // Mesmo tamanho definido no App.java
+        tileManager = new TileManager(50, 37);
         player = new Player(200, 200);
 
         addKeyListener(player);

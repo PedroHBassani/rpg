@@ -1,8 +1,0 @@
-com\jogo\App.class
-com\jogo\input\PlayerInputManager.class
-com\jogo\constants\PlayerConstants.class
-com\jogo\animation\PlayerAnimationManager.class
-com\jogo\entities\Player.class
-com\jogo\graphics\SpriteSheet.class
-com\jogo\Game.class
-com\jogo\graphics\Animation.class

@@ -1,6 +1,11 @@
 package com.jogo.map;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import com.jogo.constants.TileType;
 import com.jogo.graphics.SpriteSheet;
@@ -8,18 +13,17 @@ import com.jogo.graphics.SpriteSheet;
 public class TileManager {
 
     private final Tile[] tiles;
-    private final int[][] map;
+    private int[][] map;
     private final int tileSize;
     private final SpriteSheet sheet;
 
-    public TileManager(int mapWidth, int mapHeight) {
-        tiles = new Tile[TileType.values().length];
-        map = new int[mapHeight][mapWidth];
-        tileSize = 16;
+    public TileManager(String mapImagePath) {
+        tileSize = 16 * 3;
         sheet = new SpriteSheet("src/main/resources/tiles/sprint_tiles.png");
+        tiles = new Tile[TileType.values().length];
 
         loadTiles();
-        createMap();
+        loadMapFromImage(mapImagePath);
     }
 
     private void loadTiles() {
@@ -57,11 +61,6 @@ public class TileManager {
         loadTile(TileType.DIRT_WALL, 8, 3);
         loadTile(TileType.SAND, 9, 3);
 
-        loadTile(TileType.RED_MUSHROOM, 5, 3);
-        loadTile(TileType.WHITE_FLOWER, 5, 4);
-        loadTile(TileType.YELLOW_FLOWER, 6, 3);
-        loadTile(TileType.GRASS, 6, 4);
-
         loadTile(TileType.WATER, 1, 9);
 
         loadTile(TileType.WATER_RAVINE_TOP_LEFT, 0, 8);
@@ -88,12 +87,8 @@ public class TileManager {
         tiles[tileType.getId()] = new Tile(sheet.getSprite(x, y, 16, 16, 3), tileType);
     }
 
-    private void createMap() {
-        for (int[] map1 : map) {
-            for (int col = 0; col < map[0].length; col++) {
-                map1[col] = TileType.DIRT_CENTER.getId();
-            }
-        }
+    private void createMap(int width, int height) {
+        map = new int[height][width];
     }
 
     public void render(Graphics g) {
@@ -118,5 +113,130 @@ public class TileManager {
 
         int tileId = map[row][col];
         return tiles[tileId].isSolid();
+    }
+
+    public void loadMapFromImage(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(new File(imagePath));
+            int width = image.getWidth();
+            int height = image.getHeight();
+            createMap(width, height);
+            for (int row = 0; row < height && row < map.length; row++) {
+                for (int col = 0; col < width && col < map[0].length; col++) {
+                    int pixel = image.getRGB(col, row);
+                    TileType tileType = getTileTypeFromColor(pixel);
+                    if (tileType != null) {
+                        map[row][col] = tileType.getId();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private TileType getTileTypeFromColor(int color) {
+        switch (color) {
+            case 0x1A2B3C:  // TOP_GRASS_1
+                return TileType.TOP_GRASS_1;
+            case 0x2B3C4D:  // TOP_GRASS_2
+                return TileType.TOP_GRASS_2;
+            case 0x3C4D5E:  // TOP_GRASS_3
+                return TileType.TOP_GRASS_3;
+            case 0x4D5E6F:  // TOP_GRASS_4
+                return TileType.TOP_GRASS_4;
+        
+            case 0x5E6F70:  // DIRT_TOP_RIGHT
+                return TileType.DIRT_TOP_RIGHT;
+            case 0x6F7071:  // DIRT_TOP_CENTER
+                return TileType.DIRT_TOP_CENTER;
+            case 0x707172:  // DIRT_TOP_LEFT
+                return TileType.DIRT_TOP_LEFT;
+            case 0x818283:  // DIRT_CENTER_RIGHT
+                return TileType.DIRT_CENTER_RIGHT;
+            case 0x929394:  // DIRT_CENTER
+                return TileType.DIRT_CENTER;
+            case 0xA1B2C3:  // DIRT_CENTER_LEFT
+                return TileType.DIRT_CENTER_LEFT;
+            case 0xB1C2D3:  // DIRT_BOTTOM_RIGHT
+                return TileType.DIRT_BOTTOM_RIGHT;
+            case 0xC1D2E3:  // DIRT_BOTTOM_CENTER
+                return TileType.DIRT_BOTTOM_CENTER;
+            case 0xD1E2F3:  // DIRT_BOTTOM_LEFT
+                return TileType.DIRT_BOTTOM_LEFT;
+        
+            case 0xE1F2F3:  // HILL_TOP_LEFT
+                return TileType.HILL_TOP_LEFT;
+            case 0xF1F2F3:  // HILL_TOP_RIGHT
+                return TileType.HILL_TOP_RIGHT;
+            case 0x101112:  // HILL_BOTTOM_LEFT
+                return TileType.HILL_BOTTOM_LEFT;
+            case 0x111213:  // HILL_BOTTOM_RIGHT
+                return TileType.HILL_BOTTOM_RIGHT;
+        
+            case 0x121314:  // RAVINE_TOP_LEFT
+                return TileType.RAVINE_TOP_LEFT;
+            case 0x131415:  // RAVINE_TOP_CENTER
+                return TileType.RAVINE_TOP_CENTER;
+            case 0x141516:  // RAVINE_TOP_RIGHT
+                return TileType.RAVINE_TOP_RIGHT;
+            case 0x151617:  // RAVINE_CENTER_LEFT
+                return TileType.RAVINE_CENTER_LEFT;
+            case 0x161718:  // RAVINE_CENTER_RIGHT
+                return TileType.RAVINE_CENTER_RIGHT;
+            case 0x171819:  // RAVINE_BOTTOM_LEFT
+                return TileType.RAVINE_BOTTOM_LEFT;
+            case 0x18191A:  // RAVINE_BOTTOM_CENTER
+                return TileType.RAVINE_BOTTOM_CENTER;
+            case 0x191A1B:  // RAVINE_BOTTOM_RIGHT
+                return TileType.RAVINE_BOTTOM_RIGHT;
+        
+            case 0x202122:  // DIRT_WALL
+                return TileType.DIRT_WALL;
+            case 0x212223:  // SAND
+                return TileType.SAND;
+        
+            case 0x222324:  // WATER
+                return TileType.WATER;
+        
+            case 0x232425:  // WATER_RAVINE_TOP_LEFT
+                return TileType.WATER_RAVINE_TOP_LEFT;
+            case 0x242526:  // WATER_RAVINE_TOP_CENTER
+                return TileType.WATER_RAVINE_TOP_CENTER;
+            case 0x252627:  // WATER_RAVINE_TOP_RIGHT
+                return TileType.WATER_RAVINE_TOP_RIGHT;
+            case 0x262728:  // WATER_RAVINE_CENTER_LEFT
+                return TileType.WATER_RAVINE_CENTER_LEFT;
+            case 0x272829:  // WATER_RAVINE_CENTER_RIGHT
+                return TileType.WATER_RAVINE_CENTER_RIGHT;
+            case 0x28292A:  // WATER_RAVINE_BOTTOM_LEFT
+                return TileType.WATER_RAVINE_BOTTOM_LEFT;
+            case 0x292A2B:  // WATER_RAVINE_BOTTOM_CENTER
+                return TileType.WATER_RAVINE_BOTTOM_CENTER;
+            case 0x2A2B2C:  // WATER_RAVINE_BOTTOM_RIGHT
+                return TileType.WATER_RAVINE_BOTTOM_RIGHT;
+        
+            case 0x2B2C2D:  // DIRT_ROAD_TOP_LEFT
+                return TileType.DIRT_ROAD_TOP_LEFT;
+            case 0x2C2D2E:  // DIRT_ROAD_TOP_CENTER
+                return TileType.DIRT_ROAD_TOP_CENTER;
+            case 0x2D2E2F:  // DIRT_ROAD_TOP_RIGHT
+                return TileType.DIRT_ROAD_TOP_RIGHT;
+            case 0x2E2F30:  // DIRT_ROAD_CENTER_LEFT
+                return TileType.DIRT_ROAD_CENTER_LEFT;
+            case 0x2F3031:  // DIRT_ROAD_CENTER
+                return TileType.DIRT_ROAD_CENTER;
+            case 0x303132:  // DIRT_ROAD_CENTER_RIGHT
+                return TileType.DIRT_ROAD_CENTER_RIGHT;
+            case 0x313233:  // DIRT_ROAD_BOTTOM_LEFT
+                return TileType.DIRT_ROAD_BOTTOM_LEFT;
+            case 0x323334:  // DIRT_ROAD_BOTTOM_CENTER
+                return TileType.DIRT_ROAD_BOTTOM_CENTER;
+            case 0x333435:  // DIRT_ROAD_BOTTOM_RIGHT
+                return TileType.DIRT_ROAD_BOTTOM_RIGHT;
+        
+            default:
+                return null;
+        }
     }
 }

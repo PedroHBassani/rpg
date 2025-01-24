@@ -10,7 +10,7 @@ public enum TileType {
     TOP_GRASS_2(1, false),
     TOP_GRASS_3(2, false),
     TOP_GRASS_4(3, false),
-
+    
     DIRT_TOP_RIGHT(4, false),
     DIRT_TOP_CENTER(5, false),
     DIRT_TOP_LEFT(6, false),
@@ -20,12 +20,12 @@ public enum TileType {
     DIRT_BOTTOM_RIGHT(10, false),
     DIRT_BOTTOM_CENTER(11, false),
     DIRT_BOTTOM_LEFT(12, false),
-
+    
     HILL_TOP_LEFT(13, false),
     HILL_TOP_RIGHT(14, false),
     HILL_BOTTOM_LEFT(15, false),
     HILL_BOTTOM_RIGHT(16, false),
-
+    
     RAVINE_TOP_LEFT(17, false),
     RAVINE_TOP_CENTER(18, false),
     RAVINE_TOP_RIGHT(19, false),
@@ -34,34 +34,30 @@ public enum TileType {
     RAVINE_BOTTOM_LEFT(22, false),
     RAVINE_BOTTOM_CENTER(23, false),
     RAVINE_BOTTOM_RIGHT(24, false),
-
+    
     DIRT_WALL(25, true),
     SAND(26, false),
-    RED_MUSHROOM(27, false),
-    YELLOW_FLOWER(28, false),
-    WHITE_FLOWER(29, false),
-    GRASS(30, false),
     
-    WATER(31, false),
-
-    WATER_RAVINE_TOP_LEFT(32, false),
-    WATER_RAVINE_TOP_CENTER(33, false),
-    WATER_RAVINE_TOP_RIGHT(34, false),
-    WATER_RAVINE_CENTER_LEFT(35, false),
-    WATER_RAVINE_CENTER_RIGHT(36, false),
-    WATER_RAVINE_BOTTOM_LEFT(37, false),
-    WATER_RAVINE_BOTTOM_CENTER(38, false),
-    WATER_RAVINE_BOTTOM_RIGHT(39, false),
-
-    DIRT_ROAD_TOP_LEFT(40, false),
-    DIRT_ROAD_TOP_CENTER(41, false),
-    DIRT_ROAD_TOP_RIGHT(42, false),
-    DIRT_ROAD_CENTER_LEFT(43, false),
-    DIRT_ROAD_CENTER(44, false),
-    DIRT_ROAD_CENTER_RIGHT(45, false),
-    DIRT_ROAD_BOTTOM_LEFT(46, false),
-    DIRT_ROAD_BOTTOM_CENTER(47, false),
-    DIRT_ROAD_BOTTOM_RIGHT(48, false);
+    WATER(27, false),
+    
+    WATER_RAVINE_TOP_LEFT(28, false),
+    WATER_RAVINE_TOP_CENTER(29, false),
+    WATER_RAVINE_TOP_RIGHT(30, false),
+    WATER_RAVINE_CENTER_LEFT(31, false),
+    WATER_RAVINE_CENTER_RIGHT(32, false),
+    WATER_RAVINE_BOTTOM_LEFT(33, false),
+    WATER_RAVINE_BOTTOM_CENTER(34, false),
+    WATER_RAVINE_BOTTOM_RIGHT(35, false),
+    
+    DIRT_ROAD_TOP_LEFT(36, false),
+    DIRT_ROAD_TOP_CENTER(37, false),
+    DIRT_ROAD_TOP_RIGHT(38, false),
+    DIRT_ROAD_CENTER_LEFT(39, false),
+    DIRT_ROAD_CENTER(40, false),
+    DIRT_ROAD_CENTER_RIGHT(41, false),
+    DIRT_ROAD_BOTTOM_LEFT(42, false),
+    DIRT_ROAD_BOTTOM_CENTER(43, false),
+    DIRT_ROAD_BOTTOM_RIGHT(44, false);    
 
     private final int id;
     private final boolean solid;

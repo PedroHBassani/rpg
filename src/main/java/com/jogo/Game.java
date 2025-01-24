@@ -17,7 +17,7 @@ public class Game extends JPanel {
     private final Camera camera;
 
     public Game() {
-        tileManager = new TileManager(50, 37);
+        tileManager = new TileManager("src/main/resources/map/map1.png");
         player = new Player(200, 200);
         camera = new Camera();
 

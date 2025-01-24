@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 import com.jogo.animation.PlayerAnimationManager;
 import com.jogo.constants.PlayerConstants;
 import com.jogo.input.PlayerInputManager;
+import com.jogo.interfaces.Item;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -75,6 +77,14 @@ public final class Player implements KeyListener {
 
     public void renderInventory(Graphics g, int screenWidth, int screenHeight) {
         inventory.render(g, screenWidth, screenHeight);
+    }
+
+    public void addItemToInventory(Item item) {
+        inventory.addItem(item);
+    }
+
+    public void removeItemFromInventory(Item item) {
+        inventory.removeItem(item);
     }
 
     @Override

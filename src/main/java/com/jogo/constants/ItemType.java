@@ -12,9 +12,4 @@ public enum ItemType {
     private final int maxStackSize;
     private final Boolean collectable;
 
-    ItemType(int id, int maxStackSize, Boolean collectable) {
-        this.id = id;
-        this.maxStackSize = maxStackSize;
-        this.collectable = collectable;
-    }
 }

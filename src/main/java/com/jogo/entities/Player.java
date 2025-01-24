@@ -18,7 +18,7 @@ public final class Player implements KeyListener {
 
     private final PlayerAnimationManager animationManager;
     private final PlayerInputManager inputManager;
-    private final int speed = 4;
+    private final int speed = 10;
     private final Inventory inventory;
 
     private int x, y;

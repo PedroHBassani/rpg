@@ -2,6 +2,7 @@ package com.jogo.map;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,6 +17,7 @@ public class TileManager {
     private int[][] map;
     private final int tileSize;
     private final SpriteSheet sheet;
+    private final boolean exportImagesOfTiles = false;
 
     public TileManager(String mapImagePath) {
         tileSize = 16 * 3;
@@ -84,7 +86,21 @@ public class TileManager {
     }
 
     private void loadTile(TileType tileType, int x, int y) {
-        tiles[tileType.getId()] = new Tile(sheet.getSprite(x, y, 16, 16, 3), tileType);
+        BufferedImage tileImage = sheet.getSprite(x, y, 16, 16, 3);
+        tiles[tileType.getId()] = new Tile(tileImage, tileType);
+        exportTileImage(tileImage, tileType.name());
+    }
+
+    private void exportTileImage(BufferedImage image, String tileName) {
+        if (!exportImagesOfTiles) {
+            return;
+        }
+        File outputfile = new File("src/main/resources/tiles_image/" + tileName + ".png");
+        try {
+            ImageIO.write((RenderedImage) image, "png", outputfile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createMap(int width, int height) {
@@ -123,10 +139,12 @@ public class TileManager {
             createMap(width, height);
             for (int row = 0; row < height && row < map.length; row++) {
                 for (int col = 0; col < width && col < map[0].length; col++) {
-                    int pixel = image.getRGB(col, row);
+                    int pixel = image.getRGB(col, row) & 0xFFFFFF; // Ignorar o canal alfa
                     TileType tileType = getTileTypeFromColor(pixel);
                     if (tileType != null) {
                         map[row][col] = tileType.getId();
+                    } else {
+                        map[row][col] = TileType.DIRT_CENTER.getId(); // Default tile
                     }
                 }
             }
@@ -234,7 +252,6 @@ public class TileManager {
                 return TileType.DIRT_ROAD_BOTTOM_CENTER;
             case 0x333435:  // DIRT_ROAD_BOTTOM_RIGHT
                 return TileType.DIRT_ROAD_BOTTOM_RIGHT;
-        
             default:
                 return null;
         }

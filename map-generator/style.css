@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+#map-canvas {
+    border: 1px solid #000;
+    margin-top: 20px;
+    cursor: crosshair;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tiles-selection {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.tiles-selection img {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.tiles-selection img.selected {
+    border: 2px solid #000;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.controls input {
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    margin: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Adicionar estilos para posicionar o elemento #tile-info no canto inferior esquerdo */
+#tile-info {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Estilos para aumentar o botão "Exportar como PNG" e adicionar espaço abaixo dele */
+#export-btn {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* Diminuir o tamanho do texto da posição */
+#tile-info span {
+    font-size: 12px;
+}

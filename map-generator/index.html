@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenhando Mapa com Imagens</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Desenhando Mapa com Imagens</h1>
+
+    <div class="controls">
+        <label for="map-width">Largura do mapa (em tiles):</label>
+        <input type="number" id="map-width" value="30">
+        
+        <label for="map-height">Altura do mapa (em tiles):</label>
+        <input type="number" id="map-height" value="30">
+        
+        <button id="create-map-btn">Criar Mapa</button>
+    </div>
+
+    <div class="tiles-selection" id="tiles-selection"></div>
+
+    <div id="tile-info">
+        <span><strong>Posição:</strong> <span id="tile-position">--, --</span></span>
+        <span><strong>Imagem:</strong> <span id="tile-image">Nenhum</span></span>
+    </div>
+
+    <canvas id="map-canvas"></canvas>
+
+    <!-- Centralizar o botão -->
+    <div style="margin-top: 10px; text-align: center;">
+        <button id="export-btn">Exportar como PNG</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

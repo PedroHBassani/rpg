@@ -1,20 +1,15 @@
 package com.jogo.graphics;
 
 import java.awt.image.BufferedImage;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class Animation {
 
     private final BufferedImage[] frames;
     private final int delay;
-    private int currentFrame;
-    private int time;
-
-    public Animation(BufferedImage[] frames, int delay) {
-        this.frames = frames;
-        this.delay = delay;
-        currentFrame = 0;
-        time = 0;
-    }
+    private int currentFrame = 0;
+    private int time = 0;
 
     public void update() {
         time++;

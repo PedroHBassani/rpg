@@ -24,9 +24,6 @@ public class Game extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
 
-        player.getInventory().addItem("Sword");
-        player.getInventory().addItem("Shield");
-
         Timer timer = new Timer(1000 / 60, e -> update());
         timer.start();
     }

@@ -7,7 +7,11 @@ import java.awt.event.KeyListener;
 import com.jogo.animation.PlayerAnimationManager;
 import com.jogo.constants.PlayerConstants;
 import com.jogo.input.PlayerInputManager;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public final class Player implements KeyListener {
 
     private final PlayerAnimationManager animationManager;
@@ -85,33 +89,5 @@ public final class Player implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         inputManager.updateDirection(e.getKeyCode(), false);
-    }
-
-    public void setCurrentDirection(String direction) {
-        this.currentDirection = direction;
-    }
-
-    public void setLastDirection(String direction) {
-        this.lastDirection = direction;
-    }
-
-    public String getCurrentDirection() {
-        return currentDirection;
-    }
-
-    public String getLastDirection() {
-        return lastDirection;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public Inventory getInventory() {
-        return inventory;
     }
 }

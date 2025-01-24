@@ -8,18 +8,16 @@ import java.util.Set;
 
 import com.jogo.constants.PlayerConstants;
 import com.jogo.entities.Player;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class PlayerInputManager {
 
     private final Player player;
-    private final Set<Integer> activeKeys;
-    private final Map<Integer, Integer> oppositeKeys;
+    private final Set<Integer> activeKeys = new HashSet<>();
+    private final Map<Integer, Integer> oppositeKeys = new HashMap<>();
 
-    public PlayerInputManager(Player player) {
-        this.player = player;
-        this.activeKeys = new HashSet<>();
-        this.oppositeKeys = new HashMap<>();
-
+    {
         oppositeKeys.put(KeyEvent.VK_W, KeyEvent.VK_S);
         oppositeKeys.put(KeyEvent.VK_S, KeyEvent.VK_W);
         oppositeKeys.put(KeyEvent.VK_A, KeyEvent.VK_D);

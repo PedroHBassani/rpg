@@ -1,5 +1,10 @@
 package com.jogo.constants;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum TileType {
     TOP_GRASS_1(0, false),
     TOP_GRASS_2(1, false),
@@ -60,17 +65,4 @@ public enum TileType {
 
     private final int id;
     private final boolean solid;
-
-    TileType(int id, boolean solid) {
-        this.id = id;
-        this.solid = solid;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public boolean isSolid() {
-        return solid;
-    }
 }

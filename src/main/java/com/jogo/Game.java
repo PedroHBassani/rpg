@@ -1,6 +1,7 @@
 package com.jogo;
 
 import java.awt.Graphics;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -8,6 +9,7 @@ import javax.swing.Timer;
 import com.jogo.entities.Player;
 import com.jogo.entities.Sword;
 import com.jogo.graphics.Camera;
+import com.jogo.graphics.UIRenderer;
 import com.jogo.map.TileManager;
 
 public class Game extends JPanel {
@@ -15,11 +17,17 @@ public class Game extends JPanel {
     private final Player player;
     private final TileManager tileManager;
     private final Camera camera;
+    private UIRenderer uiRenderer;
 
     public Game() {
         tileManager = new TileManager("src/main/resources/map/mapa.png");
         player = new Player(200, 200);
         camera = new Camera();
+        try {
+            uiRenderer = new UIRenderer(player);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         addKeyListener(player);
         setFocusable(true);
@@ -51,5 +59,6 @@ public class Game extends JPanel {
         g.translate(camera.getX(), camera.getY());
 
         player.renderInventory(g, getWidth(), getHeight());
+        uiRenderer.render(g, getWidth(), getHeight());
     }
 }

@@ -15,6 +15,7 @@ public class Inventory {
 
     private final List<Item> items;
     private final BufferedImage inventorySprite;
+    private final int inventorySize = 6;
 
     public Inventory() {
         items = new ArrayList<>();
@@ -30,15 +31,18 @@ public class Inventory {
     }
 
     public void render(Graphics g, int screenWidth, int screenHeight) {
-        int spriteSize = 48;
+        int spriteSize = 36;
         int startX = 10;
         int startY = screenHeight - spriteSize - 10;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < inventorySize; i++) {
             g.drawImage(inventorySprite, startX + i * spriteSize, startY, spriteSize, spriteSize, null);
         }
 
         for (int i = 0; i < items.size(); i++) {
+            if (i >= inventorySize) {
+                break;
+            }
             int itemX = startX + i * spriteSize + (spriteSize - 36) / 2;
             int itemY = startY + (spriteSize - 35) / 2;
             g.drawImage(items.get(i).getSprite(), itemX, itemY, 36, 35, null);

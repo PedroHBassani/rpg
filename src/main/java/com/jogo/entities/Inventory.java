@@ -1,6 +1,7 @@
 package com.jogo.entities;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,14 @@ public class Inventory {
 
     private final List<Item> items;
     private final BufferedImage inventorySprite;
-    private final int inventorySize = 6;
+    private final BufferedImage selectedItemSprite;
+    private final int inventorySize = 8;
+    private int selectedItem = 0;
 
     public Inventory() {
         items = new ArrayList<>();
-        inventorySprite = new SpriteSheet("src/main/resources/menu/inventory.png").getSprite(0, 0, 48, 48, 1);
+        inventorySprite = new SpriteSheet("src/main/resources/menu/item_inventory.png").getSprite(0, 0, 48, 48, 1);
+        selectedItemSprite = new SpriteSheet("src/main/resources/menu/select_item_inventory.png").getSprite(0, 0, 48, 48, 1);
     }
 
     public void addItem(Item item) {
@@ -32,11 +36,15 @@ public class Inventory {
 
     public void render(Graphics g, int screenWidth, int screenHeight) {
         int spriteSize = 36;
-        int startX = 10;
+        int startX = (screenWidth - (inventorySize * spriteSize)) / 2;
         int startY = screenHeight - spriteSize - 10;
 
         for (int i = 0; i < inventorySize; i++) {
-            g.drawImage(inventorySprite, startX + i * spriteSize, startY, spriteSize, spriteSize, null);
+            if (i == selectedItem) {
+                g.drawImage(selectedItemSprite, startX + i * spriteSize, startY, spriteSize, spriteSize, null);
+            } else {
+                g.drawImage(inventorySprite, startX + i * spriteSize, startY, spriteSize, spriteSize, null);
+            }
         }
 
         for (int i = 0; i < items.size(); i++) {
@@ -45,7 +53,38 @@ public class Inventory {
             }
             int itemX = startX + i * spriteSize + (spriteSize - 36) / 2;
             int itemY = startY + (spriteSize - 35) / 2;
-            g.drawImage(items.get(i).getSprite(), itemX, itemY, 36, 35, null);
+            BufferedImage itemSprite = items.get(i).getSprite();
+            int itemWidth = itemSprite.getWidth();
+            int itemHeight = itemSprite.getHeight();
+
+            if (itemWidth >= 36 || itemHeight >= 35) {
+                float widthRatio = 36.0f / itemWidth;
+                float heightRatio = 35.0f / itemHeight;
+                float ratio = Math.min(widthRatio, heightRatio);
+                int newWidth = (int) (itemWidth * ratio);
+                int newHeight = (int) (itemHeight * ratio);
+                g.drawImage(itemSprite, itemX, itemY, newWidth, newHeight, null);
+            } else {
+                g.drawImage(itemSprite, itemX, itemY, 36, 35, null);
+            }
+        }
+    }
+
+    public void handleMouseClick(MouseEvent e, int screenWidth, int screenHeight) {
+        int spriteSize = 36;
+        int startX = (screenWidth - (inventorySize * spriteSize)) / 2;
+        int startY = screenHeight - spriteSize - 10;
+        int mouseX = e.getX();
+        int mouseY = e.getY();
+
+        if (mouseY >= startY && mouseY <= startY + spriteSize) {
+            for (int i = 0; i < inventorySize; i++) {
+                int itemX = startX + i * spriteSize;
+                if (mouseX >= itemX && mouseX <= itemX + spriteSize) {
+                    selectedItem = i;
+                    break;
+                }
+            }
         }
     }
 }

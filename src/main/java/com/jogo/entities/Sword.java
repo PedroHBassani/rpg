@@ -14,7 +14,7 @@ public class Sword extends Item {
     private final int durability;
 
     public Sword(String name, int damage, int range, int attackSpeed, int durability) {
-        super(name, sheet.getSprite(5, 3, 16, 16, 3), ItemType.SWORD);
+        super(name, sheet.getSprite(0, 0, 16, 16, 1), ItemType.SWORD);
 
         this.damage = damage;
         this.range = range;

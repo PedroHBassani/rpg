@@ -12,7 +12,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Item {
 
-    protected static SpriteSheet sheet = new SpriteSheet("src/main/resources/tiles/sprint_tiles.png");
+    protected static SpriteSheet sheet = new SpriteSheet("src/main/resources/items/tools.png");
 
     private final String name;
     private final BufferedImage sprite;

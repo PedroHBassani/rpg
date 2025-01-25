@@ -35,7 +35,7 @@ public final class Player implements KeyListener {
         animationManager = new PlayerAnimationManager();
         inputManager = new PlayerInputManager(this);
         inventory = new Inventory();
-        this.health = 35;
+        this.health = maxHealth;
         this.coins = 0;
 
         animationManager.setSpriteSheet("src/main/resources/character/idle.png", PlayerConstants.IDLE.getValue(), 7);
